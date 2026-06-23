@@ -1,3 +1,12 @@
+// ── FLASHCARD FLIP ───────────────────────────────────────────
+document.querySelectorAll(".flashcard").forEach((card) => {
+  const toggle = () => card.classList.toggle("flipped");
+  card.addEventListener("click", toggle);
+  card.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+  });
+});
+
 // ── RESOURCE CARD FILTER ─────────────────────────────────────
 document.querySelectorAll(".filter-chip").forEach((chip) => {
   chip.addEventListener("click", () => {

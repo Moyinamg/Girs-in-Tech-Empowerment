@@ -417,54 +417,127 @@
       </div>
     </div>
 
-    <!-- ===== ROLE MODELS STRIP ===== -->
+    <!-- ===== ROLE MODELS FLASHCARDS ===== -->
     <section class="rolemodels-section">
       <div class="container">
         <div class="rolemodels-header reveal">
           <div class="section-eyebrow" style="color:var(--hot);">👩‍💻 Women Who Changed Tech</div>
           <h2 class="section-title">You Stand on Giants' Shoulders</h2>
+          <p class="section-subtitle">Click any card to learn their story. Click again to flip back.</p>
         </div>
         <div class="rolemodels-grid">
-          <div class="rolemodel-card reveal reveal-d1">
-            <div class="rolemodel-img-wrap" style="background:linear-gradient(135deg,#f72585,#b5179e);">
-              <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?auto=format&fit=crop&w=400&q=80" alt="Illustration representing Grace Hopper" loading="lazy" />
-            </div>
-            <div class="rolemodel-info">
-              <h4>Grace Hopper</h4>
-              <p>Invented the first compiler. Made programming accessible for everyone.</p>
-              <span class="rolemodel-tag">Computer Science Pioneer</span>
-            </div>
-          </div>
-          <div class="rolemodel-card reveal reveal-d2">
-            <div class="rolemodel-img-wrap" style="background:linear-gradient(135deg,#7209b7,#560bad);">
-              <img src="https://images.unsplash.com/photo-1529088363905-518e7551bf24?auto=format&fit=crop&w=400&q=80" alt="Illustration representing Katherine Johnson" loading="lazy" />
-            </div>
-            <div class="rolemodel-info">
-              <h4>Katherine Johnson</h4>
-              <p>NASA mathematician whose calculations sent humans to the moon.</p>
-              <span class="rolemodel-tag">Space Mathematics</span>
-            </div>
-          </div>
-          <div class="rolemodel-card reveal reveal-d3">
-            <div class="rolemodel-img-wrap" style="background:linear-gradient(135deg,#4361ee,#4cc9f0);">
-              <img src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?auto=format&fit=crop&w=400&q=80" alt="Illustration representing Ada Lovelace" loading="lazy" />
-            </div>
-            <div class="rolemodel-info">
-              <h4>Ada Lovelace</h4>
-              <p>The world's first programmer — in the 1840s, before computers existed.</p>
-              <span class="rolemodel-tag">The First Programmer</span>
+
+          <!-- Grace Hopper -->
+          <div class="flashcard reveal reveal-d1" role="button" tabindex="0" aria-label="Flip card: Grace Hopper">
+            <div class="flashcard-inner">
+              <div class="flashcard-front" style="--card-grad: linear-gradient(160deg,#b5179e,#f72585);">
+                <div class="fc-img-wrap">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Commodore_Grace_M._Hopper%2C_USN_%28covered%29.jpg/400px-Commodore_Grace_M._Hopper%2C_USN_%28covered%29.jpg" alt="Grace Hopper in her Navy uniform" loading="lazy" />
+                </div>
+                <div class="fc-name-bar">
+                  <h4>Grace Hopper</h4>
+                  <span class="rolemodel-tag">Computer Science Pioneer</span>
+                </div>
+                <div class="fc-hint">Tap to learn her story →</div>
+              </div>
+              <div class="flashcard-back" style="--card-grad: linear-gradient(160deg,#b5179e,#f72585);">
+                <div class="fc-back-content">
+                  <span class="fc-back-icon">⭐</span>
+                  <h4>Grace Hopper</h4>
+                  <p class="fc-year">1906 to 2002 · US Navy Rear Admiral</p>
+                  <p>Grace invented the first compiler, a program that translated human-readable commands into machine code. Before her, only experts who understood raw binary could program computers.</p>
+                  <p>She also popularised the term <strong>"debugging"</strong> after her team found a literal moth inside a computer causing errors.</p>
+                  <p>She received the <strong>Presidential Medal of Freedom</strong> in 2016 for a lifetime of transforming computing.</p>
+                  <span class="fc-flip-back">← Flip back</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="rolemodel-card reveal">
-            <div class="rolemodel-img-wrap" style="background:linear-gradient(135deg,#d62828,#f77f00);">
-              <img src="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?auto=format&fit=crop&w=400&q=80" alt="Young woman inspired by tech role models" loading="lazy" />
-            </div>
-            <div class="rolemodel-info">
-              <h4>You — Next in Line</h4>
-              <p>The next great breakthrough in tech is waiting for a girl just like you.</p>
-              <span class="rolemodel-tag">Future Tech Leader</span>
+
+          <!-- Katherine Johnson -->
+          <div class="flashcard reveal reveal-d2" role="button" tabindex="0" aria-label="Flip card: Katherine Johnson">
+            <div class="flashcard-inner">
+              <div class="flashcard-front" style="--card-grad: linear-gradient(160deg,#7209b7,#c77dff);">
+                <div class="fc-img-wrap">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Katherine_Johnson_1983.jpg/400px-Katherine_Johnson_1983.jpg" alt="Katherine Johnson, NASA mathematician" loading="lazy" />
+                </div>
+                <div class="fc-name-bar">
+                  <h4>Katherine Johnson</h4>
+                  <span class="rolemodel-tag">Space Mathematics</span>
+                </div>
+                <div class="fc-hint">Tap to learn her story →</div>
+              </div>
+              <div class="flashcard-back" style="--card-grad: linear-gradient(160deg,#7209b7,#c77dff);">
+                <div class="fc-back-content">
+                  <span class="fc-back-icon">🚀</span>
+                  <h4>Katherine Johnson</h4>
+                  <p class="fc-year">1918 to 2020 · NASA Mathematician</p>
+                  <p>Katherine calculated the orbital trajectories that put the first Americans in space and on the Moon. Astronaut John Glenn refused to fly unless Katherine personally verified the computer calculations.</p>
+                  <p>As a Black woman in the 1950s and 60s, she worked at NASA under segregation, proving her brilliance against every barrier.</p>
+                  <p>Her story was told in the 2016 film <strong>Hidden Figures</strong>. She received the <strong>Presidential Medal of Freedom</strong> in 2015.</p>
+                  <span class="fc-flip-back">← Flip back</span>
+                </div>
+              </div>
             </div>
           </div>
+
+          <!-- Ada Lovelace -->
+          <div class="flashcard reveal reveal-d3" role="button" tabindex="0" aria-label="Flip card: Ada Lovelace">
+            <div class="flashcard-inner">
+              <div class="flashcard-front" style="--card-grad: linear-gradient(160deg,#4361ee,#4cc9f0);">
+                <div class="fc-img-wrap">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ada_Lovelace_portrait.jpg/400px-Ada_Lovelace_portrait.jpg" alt="Ada Lovelace portrait painting" loading="lazy" />
+                </div>
+                <div class="fc-name-bar">
+                  <h4>Ada Lovelace</h4>
+                  <span class="rolemodel-tag">The First Programmer</span>
+                </div>
+                <div class="fc-hint">Tap to learn her story →</div>
+              </div>
+              <div class="flashcard-back" style="--card-grad: linear-gradient(160deg,#4361ee,#4cc9f0);">
+                <div class="fc-back-content">
+                  <span class="fc-back-icon">💻</span>
+                  <h4>Ada Lovelace</h4>
+                  <p class="fc-year">1815 to 1852 · English Mathematician</p>
+                  <p>Ada wrote the world's first algorithm designed to be processed by a computing machine, nearly 100 years before computers were built. She collaborated with inventor Charles Babbage on his Analytical Engine.</p>
+                  <p>She was also the daughter of the famous poet Lord Byron. She recognised that machines could go beyond calculation and be used for music, graphics, and more.</p>
+                  <p><strong>Ada Lovelace Day</strong> is now celebrated globally every October to honour women in STEM.</p>
+                  <span class="fc-flip-back">← Flip back</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- You -->
+          <div class="flashcard reveal" role="button" tabindex="0" aria-label="Flip card: Your future in tech">
+            <div class="flashcard-inner">
+              <div class="flashcard-front" style="--card-grad: linear-gradient(160deg,#c1006a,#f72585);">
+                <div class="fc-img-wrap fc-you-wrap">
+                  <div class="fc-you-art">
+                    <span class="fc-you-emoji">🌟</span>
+                    <span class="fc-you-text">YOU</span>
+                  </div>
+                </div>
+                <div class="fc-name-bar">
+                  <h4>You, Next in Line</h4>
+                  <span class="rolemodel-tag">Future Tech Leader</span>
+                </div>
+                <div class="fc-hint">Tap for your message →</div>
+              </div>
+              <div class="flashcard-back" style="--card-grad: linear-gradient(160deg,#c1006a,#f72585);">
+                <div class="fc-back-content">
+                  <span class="fc-back-icon">💗</span>
+                  <h4>Your Turn</h4>
+                  <p class="fc-year">The Future of Tech Belongs to You</p>
+                  <p>Every name on these cards was once a girl who was told the field was not for her. Grace was told computers were too complicated. Katherine worked behind a segregation sign. Ada was dismissed as a woman.</p>
+                  <p>They built the world anyway. And now it is your turn to build something the world has never seen before.</p>
+                  <p>You are already <strong>exactly where you need to be.</strong> Keep going.</p>
+                  <span class="fc-flip-back">← Flip back</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

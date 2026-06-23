@@ -1385,3 +1385,218 @@ img { max-width: 100%; display: block; }
   .mosaic-stack { grid-template-columns: 1fr; }
   .footer-brand { display: none; }
 }
+
+/* ============================================================
+   FLASHCARD FLIP SYSTEM
+   ============================================================ */
+
+/* Replace old rolemodel-card styles with flashcard layout */
+.rolemodels-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.4rem;
+}
+
+.flashcard {
+  perspective: 1100px;
+  cursor: pointer;
+  height: 420px;
+  outline: none;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.45, 0, 0.55, 1);
+  border-radius: var(--radius-lg);
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- FRONT ---- */
+.flashcard-front {
+  background: var(--card-grad, linear-gradient(160deg, var(--hot), var(--pink-500)));
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.fc-img-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.fc-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s var(--ease);
+  filter: brightness(0.92) saturate(1.05);
+}
+
+.flashcard:hover .fc-img-wrap img {
+  transform: scale(1.04);
+}
+
+.fc-name-bar {
+  padding: 0.9rem 1.1rem 0.5rem;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+}
+
+.fc-name-bar h4 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.3rem;
+}
+
+.fc-name-bar .rolemodel-tag {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.3);
+  color: #fff;
+}
+
+.fc-hint {
+  text-align: center;
+  padding: 0.5rem 1rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.25);
+  transition: background var(--fast), color var(--fast);
+}
+
+.flashcard:hover .fc-hint {
+  background: rgba(0,0,0,0.4);
+  color: rgba(255,255,255,0.95);
+}
+
+/* ---- BACK ---- */
+.flashcard-back {
+  background: var(--card-grad, linear-gradient(160deg, var(--hot), var(--pink-500)));
+  transform: rotateY(180deg);
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+.fc-back-content {
+  padding: 1.6rem 1.4rem;
+  color: #fff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.fc-back-icon {
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: 0.2rem;
+  line-height: 1;
+}
+
+.fc-back-content h4 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.fc-year {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 0.15rem;
+}
+
+.fc-back-content p {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.88);
+}
+
+.fc-back-content p strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+.fc-flip-back {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.6);
+  border-top: 1px solid rgba(255,255,255,0.18);
+  padding-top: 0.6rem;
+  transition: color var(--fast);
+  cursor: pointer;
+}
+
+.flashcard:hover .fc-flip-back { color: rgba(255,255,255,0.9); }
+
+/* ---- YOU card art ---- */
+.fc-you-wrap {
+  background: rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fc-you-art {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.fc-you-emoji {
+  font-size: 4.5rem;
+  animation: float 3.5s ease-in-out infinite;
+  display: block;
+}
+
+.fc-you-text {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 0 30px rgba(255,255,255,0.4);
+}
+
+/* ============================================================
+   RESPONSIVE — flashcards
+   ============================================================ */
+@media (max-width: 1060px) {
+  .rolemodels-grid { grid-template-columns: 1fr 1fr; }
+  .flashcard { height: 380px; }
+}
+
+@media (max-width: 640px) {
+  .rolemodels-grid { grid-template-columns: 1fr; }
+  .flashcard { height: 360px; }
+}
