@@ -5,25 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Girls in Tech Hub</title>
 
-  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
-
-  <!-- JS -->
   <script src="script.js" defer></script>
 </head>
 <body>
 
   <!-- ========== NAVBAR ========== -->
-  <header class="site-header">
+  <header class="site-header" id="site-header">
     <div class="container nav">
-      <a href="#home" class="logo">Girls in Tech Hub</a>
-      <nav class="nav-links">
-        <a href="#home">Home</a>
+      <a href="#home" class="logo">
+        <span class="logo-dot"></span>
+        Girls in Tech Hub
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#home" class="active">Home</a>
         <a href="#about">About</a>
         <a href="#chat">Chat</a>
       </nav>
@@ -31,12 +30,15 @@
   </header>
 
   <main>
-    <!-- ========== HERO / HOME ========== -->
-    <section id="home" class="section hero-section">
+    <!-- ========== HERO ========== -->
+    <section id="home" class="hero-section">
       <div class="container hero-grid">
         <div class="hero-text">
-          <p class="eyebrow">For students, by student</p>
-          <h1>Empowering Girls in Tech 💻✨</h1>
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            For students, by students
+          </div>
+          <h1>Empowering Girls<br>in Tech&nbsp;💻✨</h1>
           <p class="hero-subtitle">
             Welcome to your tech confidence space. Learn, explore, and chat with a
             supportive bot about coding, school, and your future in tech.
@@ -48,18 +50,21 @@
 
           <div class="hero-stats">
             <div class="stat">
-              <span class="stat-number">30%</span>
+              <span class="stat-number" data-count="30" data-suffix="%">0%</span>
               <span class="stat-label">Girls in STEM clubs worldwide</span>
             </div>
             <div class="stat">
               <span class="stat-number">24/7</span>
               <span class="stat-label">Encouragement from the bot</span>
             </div>
+            <div class="stat">
+              <span class="stat-number" data-count="100" data-suffix="%">0%</span>
+              <span class="stat-label">Judgment-free zone</span>
+            </div>
           </div>
         </div>
 
         <div class="hero-image">
-          <!-- put your own image in /assets and update the src -->
           <img src="assets/Girls.jpg" alt="Girls coding illustration" />
         </div>
       </div>
@@ -68,14 +73,18 @@
     <!-- ========== ABOUT ========== -->
     <section id="about" class="section">
       <div class="container">
-        <h2 class="section-title">About This Hub</h2>
-        <p class="section-subtitle">
-          Tech can feel intimidating, especially when you’re the only girl in the room.
-          This hub gives you a space to feel seen, supported, and hyped up.
-        </p>
+        <div class="section-header reveal">
+          <div class="section-eyebrow">About the Hub</div>
+          <h2 class="section-title">Built for You. Built by Us.</h2>
+          <p class="section-subtitle">
+            Tech can feel intimidating, especially when you're the only girl in the room.
+            This hub gives you a space to feel seen, supported, and hyped up.
+          </p>
+        </div>
 
         <div class="card-grid">
-          <article class="card">
+          <article class="card reveal reveal-delay-1">
+            <div class="card-icon">🌟</div>
             <h3>Why This Space?</h3>
             <p>
               Representation matters. Girls and non-binary students deserve to feel welcome
@@ -83,15 +92,17 @@
             </p>
           </article>
 
-          <article class="card">
+          <article class="card reveal reveal-delay-2">
+            <div class="card-icon">🚀</div>
             <h3>Learn at Your Pace</h3>
             <p>
               No pressure, no judgment. Take your time with HTML, CSS, Python,
-              robotics, or whatever you’re curious about.
+              robotics, or whatever you're curious about.
             </p>
           </article>
 
-          <article class="card">
+          <article class="card reveal reveal-delay-3">
+            <div class="card-icon">💙</div>
             <h3>Built-in Support</h3>
             <p>
               The chatbot is here to give encouragement when classes, homework,
@@ -104,52 +115,51 @@
 
     <!-- ========== CHAT ========== -->
     <section id="chat" class="section section-light">
-      <div class="container chat-layout">
-        <div class="chat-panel">
-          <h2 class="section-title">Chat With the Tech Support Bot 🤖💗</h2>
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">AI Support Bot</div>
+          <h2 class="section-title">Chat With the Tech Support Bot 🤖</h2>
           <p class="section-subtitle">
-            Tell the bot how you’re feeling about tech, school, or coding.
+            Tell the bot how you're feeling about tech, school, or coding.
             It responds with positive, honest encouragement.
-          </p>
-
-          <div id="chat-window" class="chat-window"></div>
-
-          <div class="chat-input-row">
-            <input id="chat-input" type="text" placeholder="Type your message…" />
-            <button id="send-btn" class="btn btn-primary">Send</button>
-          </div>
-
-          <p class="chat-note">
-            *This is a simple personal project, not real mental health advice.
           </p>
         </div>
 
-        <aside class="chat-sidebar">
-          <h3>Quick Prompts</h3>
-          <p>Not sure what to say? Try one of these:</p>
-          <div class="quick-prompts">
-            <button class="chip" data-quick-message="I'm nervous about coding.">
-              I'm nervous about coding
-            </button>
-            <button class="chip" data-quick-message="I feel like an impostor in my CS class.">
-              I feel like an impostor
-            </button>
-            <button class="chip" data-quick-message="Math is stressing me out.">
-              Math is stressing me out
-            </button>
-            <button class="chip" data-quick-message="How can I stay motivated to study tech?">
-              How do I stay motivated?
-            </button>
-          </div>
+        <div class="chat-layout">
+          <div class="chat-panel reveal">
+            <div id="chat-window" class="chat-window"></div>
 
-          <div class="tip-card">
-            <h4>Mini Study Tip</h4>
-            <p>
-              Pick one topic, set a 25-minute timer, focus only on that, then take a 5-minute break.
-              Repeat 2–3 times. Short focused sessions &gt; cramming.
+            <div class="chat-input-row">
+              <input id="chat-input" type="text" placeholder="Type your message…" autocomplete="off" />
+              <button id="send-btn" class="btn btn-primary btn-sm">Send →</button>
+            </div>
+
+            <p class="chat-note">
+              *This is a simple personal project, not real mental health advice.
             </p>
           </div>
-        </aside>
+
+          <aside class="chat-sidebar reveal reveal-delay-1">
+            <div class="sidebar-card">
+              <h3>Quick Prompts</h3>
+              <p>Not sure what to say? Try one of these:</p>
+              <div class="quick-prompts">
+                <button class="chip" data-quick-message="I'm nervous about coding.">😰 Nervous about coding</button>
+                <button class="chip" data-quick-message="I feel like an impostor in my CS class.">🎭 Impostor syndrome</button>
+                <button class="chip" data-quick-message="Math is stressing me out.">📐 Math stress</button>
+                <button class="chip" data-quick-message="How can I stay motivated to study tech?">💡 Stay motivated</button>
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <h4>✨ Mini Study Tip</h4>
+              <p>
+                Pick one topic, set a 25-minute timer, focus only on that, then take a 5-minute break.
+                Repeat 2–3 times. Short focused sessions &gt; cramming every time.
+              </p>
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
   </main>
@@ -157,7 +167,7 @@
   <!-- ========== FOOTER ========== -->
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2025 Girls in Tech Hub — built by Moyin 💗</p>
+      <p>© 2025 Girls in Tech Hub — built by Moyin 💙</p>
       <a href="#home" class="back-to-top">Back to top ↑</a>
     </div>
   </footer>
