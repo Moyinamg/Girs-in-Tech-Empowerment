@@ -1,3 +1,21 @@
+// ── RESOURCE CARD FILTER ─────────────────────────────────────
+document.querySelectorAll(".filter-chip").forEach((chip) => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".filter-chip").forEach((c) => c.classList.remove("active"));
+    chip.classList.add("active");
+
+    const filter = chip.dataset.filter;
+    document.querySelectorAll(".resource-card").forEach((card) => {
+      const tags = card.dataset.tags || "";
+      if (filter === "all" || tags.includes(filter)) {
+        card.classList.remove("hidden");
+      } else {
+        card.classList.add("hidden");
+      }
+    });
+  });
+});
+
 // ── NAVBAR: scroll state + active link tracking ──────────────
 const header   = document.getElementById("site-header");
 const navLinks = document.querySelectorAll("#nav-links a:not(.nav-cta)");
