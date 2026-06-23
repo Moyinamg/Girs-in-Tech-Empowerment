@@ -1131,3 +1131,257 @@ img { max-width: 100%; display: block; }
   .resource-grid { grid-template-columns: 1fr; }
   .impact-grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   INSPIRE / PHOTO MOSAIC SECTION
+   ============================================================ */
+.inspire-section {
+  background: linear-gradient(145deg, #1a0011 0%, #3d0030 40%, #5a0045 70%, #2d001a 100%);
+  padding: 5.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.inspire-section::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 20%, rgba(247,37,133,0.25), transparent 55%),
+    radial-gradient(ellipse 40% 40% at 90% 80%, rgba(224,64,251,0.18), transparent 50%);
+  pointer-events: none;
+}
+
+.inspire-header {
+  text-align: center;
+  margin-bottom: 2.8rem;
+  position: relative;
+}
+
+.photo-mosaic {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  position: relative;
+}
+
+.mosaic-stack {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+}
+
+.mosaic-item {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: default;
+}
+
+.mosaic-large {
+  grid-row: span 1;
+  min-height: 360px;
+}
+
+.mosaic-wide {
+  grid-column: 1 / -1;
+  min-height: 220px;
+}
+
+.mosaic-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--ease);
+  filter: brightness(0.85) saturate(1.1);
+}
+
+.mosaic-item:hover img { transform: scale(1.04); }
+
+.mosaic-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(20,0,12,0.88) 0%, transparent 100%);
+  padding: 1.6rem 1.4rem 1.2rem;
+  transform: translateY(4px);
+  transition: transform var(--med);
+}
+
+.mosaic-item:hover .mosaic-overlay { transform: translateY(0); }
+
+.mosaic-quote {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.5;
+  margin-bottom: 0.3rem;
+}
+
+.mosaic-attr {
+  font-size: 0.72rem;
+  color: var(--pink-300);
+  font-weight: 500;
+}
+
+/* Decorative border accent */
+.mosaic-item::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: var(--radius-lg);
+  border: 2px solid rgba(247,37,133,0.25);
+  pointer-events: none;
+}
+
+/* Motivational pills */
+.inspire-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.inspire-pill {
+  background: rgba(247,37,133,0.12);
+  border: 1.5px solid rgba(247,37,133,0.3);
+  color: var(--pink-200);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 1.1rem;
+  border-radius: 99px;
+  transition: all var(--fast);
+  cursor: default;
+}
+
+.inspire-pill:hover {
+  background: rgba(247,37,133,0.25);
+  border-color: var(--hot);
+  color: var(--white);
+}
+
+/* ============================================================
+   ROLE MODELS SECTION
+   ============================================================ */
+.rolemodels-section {
+  background: var(--white);
+  padding: 5.5rem 0;
+}
+
+.rolemodels-header {
+  margin-bottom: 2.5rem;
+}
+
+.rolemodels-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.4rem;
+}
+
+.rolemodel-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--pink-100);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--med), box-shadow var(--med), border-color var(--med);
+}
+
+.rolemodel-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--pink-300);
+}
+
+.rolemodel-img-wrap {
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+}
+
+.rolemodel-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease);
+  mix-blend-mode: luminosity;
+  opacity: 0.75;
+}
+
+.rolemodel-card:hover .rolemodel-img-wrap img {
+  transform: scale(1.06);
+  opacity: 0.9;
+}
+
+.rolemodel-info {
+  padding: 1.2rem 1.1rem 1.3rem;
+}
+
+.rolemodel-info h4 {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--pink-900);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.rolemodel-info p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 0.7rem;
+}
+
+.rolemodel-tag {
+  display: inline-block;
+  background: var(--pink-50);
+  border: 1.5px solid var(--pink-200);
+  color: var(--hot);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.65rem;
+  border-radius: 99px;
+}
+
+/* ============================================================
+   FOOTER BRAND AREA
+   ============================================================ */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-logo-icon {
+  font-size: 1.4rem;
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, var(--hot), var(--pink-400));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(247,37,133,0.4);
+}
+
+.footer-brand p {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.1rem;
+}
+
+/* ============================================================
+   RESPONSIVE ADDITIONS
+   ============================================================ */
+@media (max-width: 960px) {
+  .photo-mosaic { grid-template-columns: 1fr; }
+  .mosaic-stack { grid-template-rows: none; grid-template-columns: 1fr 1fr; }
+  .mosaic-large { min-height: 280px; }
+  .mosaic-wide { min-height: 180px; }
+  .rolemodels-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .rolemodels-grid { grid-template-columns: 1fr; }
+  .mosaic-stack { grid-template-columns: 1fr; }
+  .footer-brand { display: none; }
+}
