@@ -1,76 +1,63 @@
-// -------- NAVBAR: scrolled state + active links --------
-const header = document.getElementById("site-header");
-const navLinks = document.querySelectorAll("#nav-links a");
+// ── NAVBAR: scroll state + active link tracking ──────────────
+const header   = document.getElementById("site-header");
+const navLinks = document.querySelectorAll("#nav-links a:not(.nav-cta)");
 const sections = document.querySelectorAll("section[id]");
 
 window.addEventListener("scroll", () => {
-  // Add scrolled class for glassmorphism enhancement
-  header.classList.toggle("scrolled", window.scrollY > 40);
+  header.classList.toggle("scrolled", window.scrollY > 50);
 
-  // Highlight active nav link based on scroll position
   let current = "";
-  sections.forEach((sec) => {
-    if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+  sections.forEach((s) => {
+    if (window.scrollY >= s.offsetTop - 130) current = s.id;
   });
-  navLinks.forEach((link) => {
-    link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+  navLinks.forEach((a) => {
+    a.classList.toggle("active", a.getAttribute("href") === `#${current}`);
   });
 }, { passive: true });
 
-// -------- SCROLL REVEAL --------
-const revealEls = document.querySelectorAll(".reveal");
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
+// ── SCROLL REVEAL ─────────────────────────────────────────────
+const revealObs = new IntersectionObserver(
+  (entries) => entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("visible"); revealObs.unobserve(e.target); }
+  }),
   { threshold: 0.12 }
 );
-revealEls.forEach((el) => revealObserver.observe(el));
+document.querySelectorAll(".reveal").forEach((el) => revealObs.observe(el));
 
-// -------- ANIMATED COUNTERS --------
-const counterEls = document.querySelectorAll("[data-count]");
-const counterObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = parseInt(el.dataset.count, 10);
-      const suffix = el.dataset.suffix || "";
-      const duration = 1400;
-      const start = performance.now();
-
-      function tick(now) {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        // ease-out
-        const value = Math.round(progress * progress * (3 - 2 * progress) * target);
-        el.textContent = value + suffix;
-        if (progress < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-      counterObserver.unobserve(el);
-    });
-  },
+// ── ANIMATED COUNTERS ─────────────────────────────────────────
+const counterObs = new IntersectionObserver(
+  (entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    const el     = e.target;
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || "";
+    const dur    = 1500;
+    const start  = performance.now();
+    const tick   = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+      el.textContent = Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    counterObs.unobserve(el);
+  }),
   { threshold: 0.5 }
 );
-counterEls.forEach((el) => counterObserver.observe(el));
+document.querySelectorAll("[data-count]").forEach((el) => counterObs.observe(el));
 
-// -------- CHAT --------
+// ── CHAT ──────────────────────────────────────────────────────
 const chatWindow = document.getElementById("chat-window");
 const chatInput  = document.getElementById("chat-input");
 const sendBtn    = document.getElementById("send-btn");
-const quickBtns  = document.querySelectorAll("[data-quick-message]");
+
+// Conversation history sent to the AI for context
+const conversationHistory = [];
 
 if (chatWindow && chatInput && sendBtn) {
-  // Initial bot greeting with a slight delay
   setTimeout(() => {
-    addBotMessage("Hey future tech queen 👑💻 Tell me how you feel about coding, school, or being a girl in tech. I'm here for all of it.");
-  }, 400);
+    botSay("Hey future tech queen 👑💻 I'm your AI-powered tech mentor. Ask me anything — coding questions, math help, career advice, or just how you're feeling about tech today. I'm here for all of it!");
+  }, 500);
 
   sendBtn.addEventListener("click", handleSend);
   chatInput.addEventListener("keydown", (e) => {
@@ -78,7 +65,7 @@ if (chatWindow && chatInput && sendBtn) {
   });
 }
 
-quickBtns.forEach((btn) => {
+document.querySelectorAll("[data-quick-message]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const text = btn.getAttribute("data-quick-message");
     if (text) sendMessage(text);
@@ -92,45 +79,64 @@ function handleSend() {
   sendMessage(text);
 }
 
-function sendMessage(text) {
-  addUserMessage(text);
-  const indicator = addTypingIndicator();
-  const delay = 600 + Math.random() * 500;
-  setTimeout(() => {
-    indicator.remove();
-    addBotMessage(generateReply(text));
-  }, delay);
+async function sendMessage(text) {
+  userSay(text);
+  conversationHistory.push({ role: "user", content: text });
+
+  const indicator = showTyping();
+  const reply = await fetchReply(text);
+  indicator.remove();
+
+  botSay(reply);
+  conversationHistory.push({ role: "assistant", content: reply });
 }
 
-function addUserMessage(text) {
-  const msg = createBubble("user", text);
-  chatWindow.appendChild(msg);
+async function fetchReply(message) {
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message,
+        history: conversationHistory.slice(-12),
+      }),
+    });
+
+    if (!res.ok) throw new Error("Server error");
+    const data = await res.json();
+    return data.reply || "I didn't get a response — try again!";
+  } catch {
+    return "Hmm, I couldn't connect right now. Check your connection and try again! 🔌";
+  }
+}
+
+// ── UI HELPERS ────────────────────────────────────────────────
+function userSay(text) {
+  const bubble = makeBubble("user", text);
+  chatWindow.appendChild(bubble);
   scrollChat();
 }
 
-function addBotMessage(text) {
-  const msg = createBubble("bot", text);
-  chatWindow.appendChild(msg);
+function botSay(text) {
+  const bubble = makeBubble("bot", text);
+  chatWindow.appendChild(bubble);
   scrollChat();
 }
 
-function createBubble(role, text) {
+function makeBubble(role, text) {
   const msg = document.createElement("div");
-  msg.classList.add("chat-message", role);
-  const bubble = document.createElement("div");
-  bubble.classList.add("chat-bubble");
-  bubble.textContent = text;
-  msg.appendChild(bubble);
+  msg.className = `chat-message ${role}`;
+  const bub = document.createElement("div");
+  bub.className = "chat-bubble";
+  bub.textContent = text;
+  msg.appendChild(bub);
   return msg;
 }
 
-function addTypingIndicator() {
+function showTyping() {
   const msg = document.createElement("div");
-  msg.classList.add("chat-message", "bot", "typing-indicator");
-  const bubble = document.createElement("div");
-  bubble.classList.add("chat-bubble");
-  bubble.innerHTML = `<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>`;
-  msg.appendChild(bubble);
+  msg.className = "chat-message bot typing-indicator";
+  msg.innerHTML = `<div class="chat-bubble"><span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span></div>`;
   chatWindow.appendChild(msg);
   scrollChat();
   return msg;
@@ -138,41 +144,4 @@ function addTypingIndicator() {
 
 function scrollChat() {
   chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
-}
-
-// -------- REPLY ENGINE --------
-function generateReply(rawInput) {
-  const t = rawInput.toLowerCase();
-
-  if (/hi|hello|hey/.test(t))
-    return "Hiii 👋🏽 I'm glad you're here. How are you feeling about tech today — excited, nervous, or somewhere in between?";
-
-  if (/cod(e|ing)|programming|javascript|python|html|css/.test(t))
-    return "Coding is basically learning to think in a new language — confusing at first, but you get better every single time you debug. Seriously, every error you fix is a win. Keep going 💪🏾";
-
-  if (/math/.test(t))
-    return "Math is tough for a lot of people, and that doesn't cancel your future in tech. Progress > perfection. Ask questions, practice in small chunks, and you'll get there. 📐";
-
-  if (/impostor|imposter|don'?t belong|don't fit/.test(t))
-    return "Impostor syndrome is loud, but it is lying to you. You belong in every tech space you walk into — even while you're still learning. Especially then. 🤍";
-
-  if (/nervous|scared|anxious|afraid/.test(t))
-    return "Feeling nervous means you actually care — and that's a real strength. Take a breath, break the task into tiny pieces, and start with just one. You've got this. 💙";
-
-  if (/confident|confidence|believe in me/.test(t))
-    return "Confidence is built through action, not waiting until you feel ready. Celebrate every small win — finishing one lab, asking one question, squashing one bug. That's growth. 🌱";
-
-  if (/study|learn|homework|focus/.test(t))
-    return "Try the 25–5 Pomodoro rule: 25 min focused on one thing, 5 min break. Repeat 2–3 times. Short focused sessions will beat hours of distracted cramming every time. ⏱️";
-
-  if (/tired|overwhelmed|exhausted|burnout/.test(t))
-    return "You are doing SO much. Please rest, drink water, step away from the screen. Rest is not a distraction from success — it's part of it. 🫶🏽";
-
-  if (/friend|lonely|alone/.test(t))
-    return "You're not alone — there are thousands of girls in tech going through the exact same thing. This space is proof you belong to a community. 💜";
-
-  if (/proud|did it|finished|completed/.test(t))
-    return "YESSS! That's a huge deal and you should feel proud. Every project finished, every concept understood — it all adds up to your future in tech. Celebrate it! 🎉";
-
-  return "Thank you for sharing that 💙 Your feelings are valid, and you 100% belong in tech. Tell me more, or ask me about coding, confidence, math, or impostor syndrome.";
 }
